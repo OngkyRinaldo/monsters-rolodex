@@ -1,13 +1,15 @@
-import React from 'react';
+import { useContext } from 'react';
+import { DataContext } from '../context/data.context';
 
-const SearchBox = ({ className, placeholder, onChangeHandler }) => {
+const SearchBox = () => {
+    const { onSearch } = useContext(DataContext);
     return (
         <div>
             <input
                 type='search'
-                className={`search-box ${className}`}
-                placeholder={placeholder}
-                onChange={onChangeHandler}
+                className='search-box py-5 px-5 rounded-full'
+                placeholder='search monsters...'
+                onChange={onSearch}
             />
         </div>
     );
