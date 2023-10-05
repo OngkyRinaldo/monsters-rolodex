@@ -1,12 +1,10 @@
 import axios from 'axios';
 import {
-    ChangeEvent,
-    Dispatch,
-    ReactNode,
-    SetStateAction,
     createContext,
     useEffect,
     useState,
+    ReactNode,
+    ChangeEvent,
 } from 'react';
 
 type Monster = {
@@ -18,31 +16,31 @@ type Monster = {
 type DataContextType = {
     monsters: Monster[];
     searchField: string;
-    setSearchField: Dispatch<SetStateAction<string>>;
-    filteredMonsters: Monster[];
-    onSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+    setSearchField: React.Dispatch<React.SetStateAction<string>>;
+    filteredMonsters: Monster[]; // Include filteredMonsters in the context type
+    onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const DataContext = createContext<DataContextType>({
     monsters: [],
     searchField: '',
     setSearchField: () => {},
-    filteredMonsters: [],
-    onSearch: () => {},
+    filteredMonsters: [], // Initialize it as an empty array
+    onSearch: () => {}, // Remove the 'e' parameter
 });
 
 type DataProviderProps = {
     children: ReactNode;
 };
 
-export const DataProvider = ({ children }: DataProviderProps) => {
+export function DataProvider({ children }: DataProviderProps) {
     const [monsters, setMonsters] = useState<Monster[]>([]);
     const [searchField, setSearchField] = useState<string>('');
-    const [filteredMonsters, setFilteredMonsters] = useState<Monster[]>([]);
+    const [filteredMonsters, setFilteredMonsters] = useState<Monster[]>([]); // Initialize filteredMonsters
 
     const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
         const searchFieldString = e.target.value.toLowerCase();
-        setSearchField(searchFieldString);
+        setSearchField(searchFieldString); // Update searchField with the input value
     };
 
     const getMonsters = async () => {
@@ -77,4 +75,4 @@ export const DataProvider = ({ children }: DataProviderProps) => {
     return (
         <DataContext.Provider value={value}>{children}</DataContext.Provider>
     );
-};
+}
