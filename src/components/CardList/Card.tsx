@@ -8,7 +8,7 @@ type CardProps = {
     monster: Monster;
 };
 
-function Card({ monster }: CardProps) {
+export const Card = ({ monster }: CardProps) => {
     const { id, name, email } = monster;
 
     return (
@@ -22,6 +22,4 @@ function Card({ monster }: CardProps) {
             <p className='text-sm mb-10'>{email} </p>
         </div>
     );
-}
-
-export default Card;
+};

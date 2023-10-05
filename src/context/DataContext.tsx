@@ -5,6 +5,8 @@ import {
     useState,
     ReactNode,
     ChangeEvent,
+    Dispatch,
+    SetStateAction,
 } from 'react';
 
 type Monster = {
@@ -16,17 +18,17 @@ type Monster = {
 type DataContextType = {
     monsters: Monster[];
     searchField: string;
-    setSearchField: React.Dispatch<React.SetStateAction<string>>;
-    filteredMonsters: Monster[]; // Include filteredMonsters in the context type
-    onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    setSearchField: Dispatch<SetStateAction<string>>;
+    filteredMonsters: Monster[];
+    onSearch: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const DataContext = createContext<DataContextType>({
     monsters: [],
     searchField: '',
     setSearchField: () => {},
-    filteredMonsters: [], // Initialize it as an empty array
-    onSearch: () => {}, // Remove the 'e' parameter
+    filteredMonsters: [],
+    onSearch: () => {},
 });
 
 type DataProviderProps = {
@@ -36,11 +38,11 @@ type DataProviderProps = {
 export function DataProvider({ children }: DataProviderProps) {
     const [monsters, setMonsters] = useState<Monster[]>([]);
     const [searchField, setSearchField] = useState<string>('');
-    const [filteredMonsters, setFilteredMonsters] = useState<Monster[]>([]); // Initialize filteredMonsters
+    const [filteredMonsters, setFilteredMonsters] = useState<Monster[]>([]);
 
     const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
         const searchFieldString = e.target.value.toLowerCase();
-        setSearchField(searchFieldString); // Update searchField with the input value
+        setSearchField(searchFieldString);
     };
 
     const getMonsters = async () => {
@@ -49,7 +51,7 @@ export function DataProvider({ children }: DataProviderProps) {
         );
 
         setMonsters(response.data);
-        setFilteredMonsters(response.data); // Initialize filteredMonsters with all monsters
+        setFilteredMonsters(response.data);
     };
 
     useEffect(() => {

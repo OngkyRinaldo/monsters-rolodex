@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { DataContext } from '../../context/DataContext';
-import Card from './Card';
+import { Card } from './Card';
 
 export const CardList = () => {
     const { filteredMonsters } = useContext(DataContext);
