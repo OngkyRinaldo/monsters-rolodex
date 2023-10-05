@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { DataContext } from '../context/data.context';
+import { DataContext } from '../context/DataContext';
 
-const SearchBox = () => {
+export const SearchBox = () => {
     const { onSearch } = useContext(DataContext);
     return (
         <div>
@@ -14,5 +14,3 @@ const SearchBox = () => {
         </div>
     );
 };
-
-export default SearchBox;

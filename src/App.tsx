@@ -1,5 +1,5 @@
-import CardList from './components/CardList/CardList';
-import SearchBox from './components/SearchBox';
+import { CardList } from './components/CardList/CardList';
+import { SearchBox } from './components/SearchBox';
 
 const App = () => {
     return (
